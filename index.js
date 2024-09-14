@@ -1,21 +1,4 @@
-// Function to fetch price based on the selected crypto pair
-function fetchPrice() {
-  const symbol = document.getElementById('cryptoSymbol').value;
-  fetchLivePrice(symbol);
-}
-
-// Fetch live market data (e.g., from Binance API)
-function fetchLivePrice(symbol) {
-  fetch(`https://api.binance.com/api/v3/ticker/price?symbol=${symbol}`)
-    .then(response => response.json())
-    .then(data => {
-      // Set the entry price field with the fetched price
-      document.getElementById('entryPrice').value = parseFloat(data.price).toFixed(2);
-    })
-    .catch(error => alert('Error fetching live data'));
-}
-
-// Calculate profit function (existing code)
+// Function to calculate profit
 function calculateProfit() {
   // Get values from input fields
   const entryPrice = parseFloat(document.getElementById('entryPrice').value);
