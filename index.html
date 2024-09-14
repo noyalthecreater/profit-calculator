@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profit Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 50px;
+      background-color: #f4f4f9;
+    }
+    input {
+      padding: 10px;
+      margin: 10px 0;
+      width: 100%;
+      max-width: 300px;
+    }
+    button {
+      padding: 10px;
+      margin: 10px 0;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    h1, h2 {
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <h1>Crypto Profit Calculator</h1>
+  
+  <label for="entryPrice">Entry Price:</label><br>
+  <input type="number" id="entryPrice" placeholder="Enter the entry price"><br>
+
+  <label for="exitPrice">Exit Price:</label><br>
+  <input type="number" id="exitPrice" placeholder="Enter the exit price"><br>
+
+  <label for="investment">Initial Investment (USD):</label><br>
+  <input type="number" id="investment" placeholder="Enter initial investment"><br>
+
+  <button onclick="calculateProfit()">Calculate Profit</button>
+
+  <h2 id="result">Profit: $0.00</h2>
+
+  <script src="script.js"></script>
+</body>
+</html>
