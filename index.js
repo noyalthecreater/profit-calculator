@@ -4,9 +4,17 @@ function calculateProfit() {
   const exitPrice = parseFloat(document.getElementById('exitPrice').value);
   const initialInvestment = parseFloat(document.getElementById('investment').value);
 
-  // Check if the inputs are valid
-  if (isNaN(entryPrice) || isNaN(exitPrice) || isNaN(initialInvestment)) {
-    alert("Please enter valid numbers for all fields.");
+  // Validate inputs (ensure they are positive numbers)
+  if (isNaN(entryPrice) || entryPrice <= 0) {
+    alert("Please enter a valid positive number for the entry price.");
+    return;
+  }
+  if (isNaN(exitPrice) || exitPrice <= 0) {
+    alert("Please enter a valid positive number for the exit price.");
+    return;
+  }
+  if (isNaN(initialInvestment) || initialInvestment <= 0) {
+    alert("Please enter a valid positive number for the initial investment.");
     return;
   }
 
@@ -16,6 +24,6 @@ function calculateProfit() {
   // Calculate profit
   const profit = initialInvestment * priceChangePercentage;
 
-  // Display the result
+  // Display the result, ensuring it's formatted correctly
   document.getElementById('result').innerText = `Profit: $${profit.toFixed(2)}`;
 }
