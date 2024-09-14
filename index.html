@@ -34,7 +34,15 @@
 </head>
 <body>
   <h1>Crypto Trade Profit Calculator</h1>
-  
+
+  <label for="cryptoSymbol">Select Crypto Pair:</label><br>
+  <select id="cryptoSymbol">
+    <option value="BTCUSDT">BTC/USDT</option>
+    <option value="ETHUSDT">ETH/USDT</option>
+  </select><br>
+
+  <button onclick="fetchPrice()">Fetch Live Entry Price</button><br>
+
   <label for="entryPrice">Entry Price:</label><br>
   <input type="number" id="entryPrice" placeholder="Enter the entry price"><br>
 
