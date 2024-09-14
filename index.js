@@ -3,27 +3,51 @@ function calculateProfit() {
   const entryPrice = parseFloat(document.getElementById('entryPrice').value);
   const exitPrice = parseFloat(document.getElementById('exitPrice').value);
   const initialInvestment = parseFloat(document.getElementById('investment').value);
+  const leverage = parseFloat(document.getElementById('leverage').value) || 1;  // Default to 1 if no leverage
+  const stopLoss = parseFloat(document.getElementById('stopLoss').value);
+  const positionType = document.getElementById('positionType').value; // "long" or "short"
 
-  // Validate inputs (ensure they are positive numbers)
-  if (isNaN(entryPrice) || entryPrice <= 0) {
-    alert("Please enter a valid positive number for the entry price.");
-    return;
-  }
-  if (isNaN(exitPrice) || exitPrice <= 0) {
-    alert("Please enter a valid positive number for the exit price.");
-    return;
-  }
-  if (isNaN(initialInvestment) || initialInvestment <= 0) {
-    alert("Please enter a valid positive number for the initial investment.");
+  // Check if the inputs are valid
+  if (isNaN(entryPrice) || isNaN(exitPrice) || isNaN(initialInvestment)) {
+    alert("Please enter valid numbers for all fields.");
     return;
   }
 
-  // Calculate percentage price change
-  const priceChangePercentage = (exitPrice - entryPrice) / entryPrice;
+  // Calculate profit or loss
+  let priceChangePercentage;
+  if (positionType === "long") {
+    priceChangePercentage = (exitPrice - entryPrice) / entryPrice;
+  } else {
+    priceChangePercentage = (entryPrice - exitPrice) / entryPrice; // For short positions
+  }
 
-  // Calculate profit
-  const profit = initialInvestment * priceChangePercentage;
+  let profit = initialInvestment * priceChangePercentage * leverage;
 
-  // Display the result, ensuring it's formatted correctly
-  document.getElementById('result').innerText = `Profit: $${profit.toFixed(2)}`;
+  // Calculate potential stop-loss effect if entered
+  let potentialLoss = 0;
+  if (stopLoss && !isNaN(stopLoss)) {
+    let stopLossChangePercentage;
+    if (positionType === "long") {
+      stopLossChangePercentage = (stopLoss - entryPrice) / entryPrice;
+    } else {
+      stopLossChangePercentage = (entryPrice - stopLoss) / entryPrice;
+    }
+    potentialLoss = initialInvestment * stopLossChangePercentage * leverage;
+  }
+
+  // Display the result
+  document.getElementById('result').innerText = `Profit: $${profit.toFixed(2)} \nPotential Loss: $${potentialLoss.toFixed(2)}`;
 }
+
+// Fetch live market data (e.g., from Binance API)
+function fetchLivePrice(symbol) {
+  fetch(`https://api.binance.com/api/v3/ticker/price?symbol=${symbol}`)
+    .then(response => response.json())
+    .then(data => {
+      document.getElementById('entryPrice').value = parseFloat(data.price).toFixed(2);
+    })
+    .catch(error => alert('Error fetching live data'));
+}
+
+// Example: Fetch live price for BTCUSDT
+fetchLivePrice('BTCUSDT');
