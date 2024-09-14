@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Profit Calculator</title>
+  <title>Enhanced Profit Calculator</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       margin: 50px;
       background-color: #f4f4f9;
     }
-    input {
+    input, select {
       padding: 10px;
       margin: 10px 0;
       width: 100%;
@@ -43,6 +43,18 @@
 
   <label for="investment">Initial Investment (USD):</label><br>
   <input type="number" id="investment" placeholder="Enter initial investment"><br>
+
+  <label for="leverage">Leverage (optional):</label><br>
+  <input type="number" id="leverage" placeholder="Enter leverage (e.g., 5 for 5x)" value="1"><br>
+
+  <label for="stopLoss">Stop-Loss Price (optional):</label><br>
+  <input type="number" id="stopLoss" placeholder="Enter stop-loss price"><br>
+
+  <label for="positionType">Trade Type:</label><br>
+  <select id="positionType">
+    <option value="long">Long</option>
+    <option value="short">Short</option>
+  </select><br>
 
   <button onclick="calculateProfit()">Calculate Profit</button>
 
